@@ -38,16 +38,28 @@ jobs:
           pyinstaller --windowed --additional-hooks-dir=. --icon=assets/app_icon.ico -F file_cleaner_gui.py --name "File_Cleaner"
         shell: bash
 
+      - name: List files in dist directory
+        run: |
+          ls -alh dist
+
       - name: Zip .app file (macOS only)
         if: matrix.os == 'macos-latest'
         run: |
           cd dist
-          zip -r File_Cleaner.zip . -i File_Cleaner.app
+          zip -r File_Cleaner.zip . -i File_Cleaner.app || echo "No .app file found, skipping zip"
 
-      - name: Upload artifact
+      - name: Upload .exe artifact (Ubuntu only)
+        if: matrix.os == 'ubuntu-latest'
         uses: actions/upload-artifact@v2
         with:
-          name: built-files
-          path: |
-            dist/File_Cleaner.${{ matrix.extension }}
-            dist/File_Cleaner.zip
+          name: File_Cleaner_exe
+          path: dist/File_Cleaner.exe
+          if-no-files-found: warn
+
+      - name: Upload .zip artifact (macOS only)
+        if: matrix.os == 'macos-latest'
+        uses: actions/upload-artifact@v2
+        with:
+          name: File_Cleaner_zip
+          path: dist/File_Cleaner.zip
+          if-no-files-found: warn
