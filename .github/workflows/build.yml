@@ -35,12 +35,12 @@ jobs:
 
       - name: Build with PyInstaller
         run: |
-          pyinstaller --windowed --additional-hooks-dir=. --icon=assets/app_icon.ico -F file_cleaner_gui.py --name "File_Cleaner"
+          pyinstaller --windowed --additional-hooks-dir=. --icon=assets/app_icon.ico -F file_cleaner_gui.py
         shell: bash
 
-      - name: List files in dist directory
+      - name: Rename output file
         run: |
-          ls -alh dist
+          mv dist/file_cleaner_gui.${{ matrix.extension }} dist/File_Cleaner.${{ matrix.extension }}
 
       - name: Zip .app file (macOS only)
         if: matrix.os == 'macos-latest'
@@ -52,7 +52,7 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
         uses: actions/upload-artifact@v2
         with:
-          name: File_Cleaner_exe
+          name: File_Cleaner.exe
           path: dist/File_Cleaner.exe
           if-no-files-found: warn
 
