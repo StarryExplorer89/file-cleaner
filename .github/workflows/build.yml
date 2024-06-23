@@ -46,7 +46,7 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
         uses: actions/upload-artifact@v2
         with:
-          name: File_Cleaner_Windows.zip
+          name: File_Cleaner_Windows
           path: dist/File_Cleaner.exe
           if-no-files-found: warn
 
@@ -54,6 +54,6 @@ jobs:
         if: matrix.os == 'macos-latest'
         uses: actions/upload-artifact@v2
         with:
-          name: File_Cleaner_macOS.zip
+          name: File_Cleaner_macOS
           path: dist/File_Cleaner.app
           if-no-files-found: warn
