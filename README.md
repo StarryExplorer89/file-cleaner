@@ -10,6 +10,7 @@ This app repairs corruption caused by trailing data in any file due to bad downl
 Download here File Cleaner v1.2
 - [Download for Windows](https://github.com/StarryExplorer89/file-cleaner/releases/download/v1.2/File_Cleaner_Windows.exe)
 - [Download for macOS](https://github.com/StarryExplorer89/file-cleaner/releases/download/v1.2/File_Cleaner_macOS.zip)
+
 Note: macOS prevents you from opening an app downloaded from GitHub. To solve this, you need to press right click on the file, then select `Open` from the menu and finally click `Open` one more time. Once you open the app for the first time, macOS will remember your choice, and you should be able to open the app normally in the future.
 
 ### Usage
