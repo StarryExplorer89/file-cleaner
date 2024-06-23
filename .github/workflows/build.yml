@@ -42,32 +42,27 @@ jobs:
         run: |
           mv dist/file_cleaner_gui dist/File_Cleaner.${{ matrix.extension }}
 
-      - name: Upload .exe artifact (Ubuntu only)
-        if: matrix.os == 'ubuntu-latest'
-        uses: actions/upload-artifact@v2
+      - name: Check if release exists
+        id: check_release
+        uses: octokit/request-action@v2
         with:
-          name: File_Cleaner_Windows
-          path: dist/File_Cleaner.exe
-          if-no-files-found: warn
-
-      - name: Upload .zip artifact (macOS only)
-        if: matrix.os == 'macos-latest'
-        uses: actions/upload-artifact@v2
-        with:
-          name: File_Cleaner_macOS
-          path: dist/File_Cleaner.app
-          if-no-files-found: warn
-
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
+          route: GET /repos/${{ github.repository }}/releases/tags/v1.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: v1.2
-          release_name: File Cleaner v1.2
-          draft: false
-          prerelease: false
+        continue-on-error: true
+
+      - name: Create or update release
+        id: create_release
+        run: |
+          if [ "${{ steps.check_release.outputs.status }}" == "200" ]; then
+            echo "Release exists, updating..."
+            gh release upload v1.2 dist/File_Cleaner.${{ matrix.extension }} dist/File_Cleaner.zip --clobber
+          else
+            echo "Creating new release..."
+            gh release create v1.2 dist/File_Cleaner.${{ matrix.extension }} dist/File_Cleaner.zip --title "File Cleaner v1.2" --notes "New release"
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload .exe artifact (Ubuntu only)
         if: matrix.os == 'ubuntu-latest'
