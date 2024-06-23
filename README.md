@@ -8,8 +8,8 @@ This app repairs corruption caused by trailing data in any file due to bad downl
 
 ## Download
 Download here File Cleaner v1.2
-- [Download for Windows](https://github.com/StarryExplorer89/file-cleaner/releases/download/v1.2/File_Cleaner.exe)
-- [Download for macOS](https://github.com/StarryExplorer89/file-cleaner/releases/download/v1.2/File_Cleaner.zip)
+- [Download for Windows](https://github.com/StarryExplorer89/file-cleaner/releases/download/v1.2/File_Cleaner_Windows.exe)
+- [Download for macOS](https://github.com/StarryExplorer89/file-cleaner/releases/download/v1.2/File_Cleaner_macOS.zip)
 
 ### Usage
 
