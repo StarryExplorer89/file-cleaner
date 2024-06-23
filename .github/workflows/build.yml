@@ -6,17 +6,8 @@ on:
       - main
 
 jobs:
-  build:
+  build_ubuntu:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest]
-        include:
-          - os: ubuntu-latest
-            extension: exe
-          - os: macos-latest
-            extension: app
 
     steps:
       - name: Checkout repository
@@ -40,32 +31,80 @@ jobs:
 
       - name: Rename output file
         run: |
-          mv dist/file_cleaner_gui dist/File_Cleaner.${{ matrix.extension }}
+          mv dist/file_cleaner_gui dist/File_Cleaner.exe
 
-      - name: Check if release exists
-        id: check_release
-        uses: octokit/request-action@v2
+      - name: Upload .exe artifact
+        uses: actions/upload-artifact@v3
         with:
-          route: GET /repos/${{ github.repository }}/releases/tags/v1.2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        continue-on-error: true
+          name: File_Cleaner_Windows
+          path: dist/File_Cleaner.exe
 
-      - name: Create or update release
-        id: create_release
+  build_macos:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
         run: |
-          if [ "${{ steps.check_release.outputs.status }}" == "200" ]; then
-            echo "Release exists, updating..."
-            gh release upload v1.2 dist/File_Cleaner.${{ matrix.extension }} dist/File_Cleaner.zip --clobber
-          else
-            echo "Creating new release..."
-            gh release create v1.2 dist/File_Cleaner.${{ matrix.extension }} dist/File_Cleaner.zip --title "File Cleaner v1.2" --notes "New release"
-          fi
+          python -m pip install --upgrade pip
+          pip install pyinstaller
+          pip install -r requirements.txt
+
+      - name: Build with PyInstaller
+        run: |
+          pyinstaller --windowed --additional-hooks-dir=. --icon=assets/app_icon.ico -F file_cleaner_gui.py
+        shell: bash
+
+      - name: Rename output file
+        run: |
+          mv dist/file_cleaner_gui dist/File_Cleaner.app
+
+      - name: Compress .app file
+        run: |
+          zip -r dist/File_Cleaner.zip dist/File_Cleaner.app
+
+      - name: Upload .app artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: File_Cleaner_macOS
+          path: dist/File_Cleaner.zip
+
+  create_release:
+    runs-on: ubuntu-latest
+    needs: [build_ubuntu, build_macos]
+
+    steps:
+      - name: Download .exe artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: File_Cleaner_Windows
+          path: ./dist
+
+      - name: Download .app artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: File_Cleaner_macOS
+          path: ./dist
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v1.2
+          release_name: File Cleaner v1.2
+          draft: false
+          prerelease: false
 
-      - name: Upload .exe artifact (Ubuntu only)
-        if: matrix.os == 'ubuntu-latest'
+      - name: Upload .exe artifact
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -75,8 +114,7 @@ jobs:
           asset_name: File_Cleaner.exe
           asset_content_type: application/octet-stream
 
-      - name: Upload .zip artifact (macOS only)
-        if: matrix.os == 'macos-latest'
+      - name: Upload .zip artifact
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
