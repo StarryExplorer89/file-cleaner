@@ -40,7 +40,7 @@ jobs:
 
       - name: Rename output file
         run: |
-          mv dist/file_cleaner_gui.${{ matrix.extension }} dist/File_Cleaner.${{ matrix.extension }}
+          mv dist/file_cleaner_gui dist/File_Cleaner.${{ matrix.extension }}
 
       - name: Zip .app file (macOS only)
         if: matrix.os == 'macos-latest'
