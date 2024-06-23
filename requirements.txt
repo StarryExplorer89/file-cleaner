@@ -1,0 +1,2 @@
+pyinstaller==5.13.2
+tkinterdnd2_universal==1.7.3
