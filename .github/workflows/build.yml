@@ -42,18 +42,12 @@ jobs:
         run: |
           mv dist/file_cleaner_gui dist/File_Cleaner.${{ matrix.extension }}
 
-      - name: Zip .app file (macOS only)
-        if: matrix.os == 'macos-latest'
-        run: |
-          cd dist
-          zip -r File_Cleaner.zip . -i File_Cleaner.app || echo "No .app file found, skipping zip"
-
       - name: Upload .exe artifact (Ubuntu only)
         if: matrix.os == 'ubuntu-latest'
         uses: actions/upload-artifact@v2
         with:
-          name: File_Cleaner.exe
-          path: dist/File_Cleaner_Windows.exe
+          name: File_Cleaner_Windows.zip
+          path: dist/File_Cleaner.exe
           if-no-files-found: warn
 
       - name: Upload .zip artifact (macOS only)
@@ -61,5 +55,5 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: File_Cleaner_macOS.zip
-          path: dist/File_Cleaner.zip
+          path: dist/File_Cleaner.app
           if-no-files-found: warn
