@@ -1,10 +1,10 @@
 # File Cleaner
 This app repairs corruption caused by trailing data in any file due to bad downloads or external malicious tampering. The affected bytes are stored in a separate file, ensuring that no data is deleted and can be re-appended later.
 
-<div style="display: flex; justify-content: space-between;">
-  <img src="assets/file_cleaner_gui.png" alt="File Cleaner for Windows" style="max-width: 45%; height: auto; margin-right: 10px;">
-  <img src="assets/file_cleaner_gui.png" alt="File Cleaner for MacOS" style="max-width: 45%; height: auto;">
-</div>
+<p float="left">
+  <img src="/assets/file_cleaner_gui_windows.png" width="45%" />
+  <img src="/assets/file_cleaner_gui_macos.png" width="45%" /> 
+</p>
 
 ## Download
 Download links will follow soon
