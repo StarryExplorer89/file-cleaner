@@ -53,13 +53,13 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: File_Cleaner.exe
-          path: dist/File_Cleaner.exe
+          path: dist/File_Cleaner_Windows.exe
           if-no-files-found: warn
 
       - name: Upload .zip artifact (macOS only)
         if: matrix.os == 'macos-latest'
         uses: actions/upload-artifact@v2
         with:
-          name: File_Cleaner_zip
+          name: File_Cleaner_macOS.zip
           path: dist/File_Cleaner.zip
           if-no-files-found: warn
