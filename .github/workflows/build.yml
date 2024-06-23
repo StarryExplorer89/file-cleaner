@@ -57,3 +57,36 @@ jobs:
           name: File_Cleaner_macOS
           path: dist/File_Cleaner.app
           if-no-files-found: warn
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v1.2
+          release_name: File Cleaner v1.2
+          draft: false
+          prerelease: false
+
+      - name: Upload .exe artifact (Ubuntu only)
+        if: matrix.os == 'ubuntu-latest'
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: dist/File_Cleaner.exe
+          asset_name: File_Cleaner.exe
+          asset_content_type: application/octet-stream
+
+      - name: Upload .zip artifact (macOS only)
+        if: matrix.os == 'macos-latest'
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: dist/File_Cleaner.zip
+          asset_name: File_Cleaner.zip
+          asset_content_type: application/zip
