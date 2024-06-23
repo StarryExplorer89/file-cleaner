@@ -111,7 +111,7 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: dist/File_Cleaner.exe
-          asset_name: File_Cleaner_Windows
+          asset_name: File_Cleaner_Windows.exe
           asset_content_type: application/octet-stream
 
       - name: Upload .zip artifact
@@ -121,5 +121,5 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: dist/File_Cleaner.zip
-          asset_name: File_Cleaner_macOS
+          asset_name: File_Cleaner_macOS.zip
           asset_content_type: application/zip
