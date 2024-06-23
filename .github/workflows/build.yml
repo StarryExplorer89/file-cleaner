@@ -68,7 +68,7 @@ jobs:
 
       - name: Compress .app file
         run: |
-          zip -r dist/File_Cleaner.zip dist/File_Cleaner.app
+          cd dist && zip -r File_Cleaner.zip File_Cleaner.app
 
       - name: Upload .app artifact
         uses: actions/upload-artifact@v3
