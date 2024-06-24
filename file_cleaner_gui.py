@@ -153,18 +153,29 @@ def find_trailing_junk_bytes(file_path):
                 junk_bytes = file_size - last_valid_chunk_end
                 return junk_bytes
 
-            elif file_type == "pdf":
-                file_stream.seek(0)
-                while position < file_size:
-                    file_stream.seek(position)
-                    chunk = file_stream.read(min_chunk_size)
-                    eof_index = chunk.find(b'\x45\x4F\x46\x0A')
-                    if eof_index != -1:
-                        last_valid_chunk_end = position + eof_index + 3
-                        break
-                    position += min_chunk_size
-                junk_bytes = file_size - last_valid_chunk_end
-                return junk_bytes
+            if file_type == "pdf":
+                file_size = os.path.getsize(file_path)
+                min_chunk_size = 1024
+                eof_marker = b'%%EOF'
+
+                with open(file_path, 'rb') as file_stream:
+                    file_stream.seek(-min_chunk_size, os.SEEK_END)
+                    position = file_stream.tell()
+                    last_valid_chunk_end = file_size
+
+                    while position > 0:
+                        file_stream.seek(position)
+                        chunk = file_stream.read(min_chunk_size)
+                        eof_index = chunk.rfind(eof_marker)
+
+                        if eof_index != -1:
+                            last_valid_chunk_end = position + eof_index + len(eof_marker)
+                            break
+
+                        position -= min_chunk_size
+
+                    junk_bytes = file_size - last_valid_chunk_end
+                    return junk_bytes
 
             elif file_type == "zip":
                 file_stream.seek(-22, os.SEEK_END)
