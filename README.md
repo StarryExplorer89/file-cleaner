@@ -8,8 +8,8 @@ This app repairs corruption caused by trailing data in any file due to bad downl
 
 ## Download
 Download here File Cleaner v1.2
-- [Download for Windows](https://github.com/StarryExplorer89/file-cleaner/releases/download/v1.2/File_Cleaner_Windows.exe)
-- [Download for macOS](https://github.com/StarryExplorer89/file-cleaner/releases/download/v1.2/File_Cleaner_macOS.zip)
+- [Download for Windows](https://github.com/StarryExplorer89/file-cleaner/releases/download/v1.2/File_Cleaner_v1.2.exe)
+- [Download for macOS](https://github.com/StarryExplorer89/file-cleaner/releases/download/v1.2/File_Cleaner_v1.2.zip)
 
 ### Usage
 
@@ -27,11 +27,11 @@ Download here File Cleaner v1.2
 - MOV
 - WMV
 - AVI
-- MKV (in beta)
+- MKV
 - JPG/JPEG
 - PNG
 - ZIP
-- PDF (in beta)
+- PDF
 
 ## Future Updates
 I sadly have little time to upgrade this application. Some features I'd like to add in the future are:
