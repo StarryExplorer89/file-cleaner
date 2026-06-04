@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>File Cleaner</title>
+    <meta
+      name="description"
+      content="Strip trailing junk bytes from media, image and archive files — entirely in your browser. Nothing is uploaded."
+    />
+  </head>
+  <body>
+    <main class="app">
+      <header>
+        <h1>File Cleaner</h1>
+        <p class="lead">
+          Removes trailing junk bytes from broken downloads or tampered files.
+          Everything runs <strong>in your browser</strong>. No upload, no server.
+        </p>
+      </header>
+
+      <div id="dropzone" class="dropzone" tabindex="0">
+        <p class="dropzone__hint">Drag &amp; drop files here</p>
+        <p class="dropzone__or">or</p>
+        <button id="pick" type="button" class="btn">Select files</button>
+        <input id="fileInput" type="file" multiple hidden />
+      </div>
+
+      <section id="results" class="results" hidden></section>
+
+      <footer>
+        <span>Supports mp4/mov, wmv, mkv, jpeg, png, zip, pdf, avi.</span>
+      </footer>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "name": "file-cleaner-monorepo",
+  "private": true,
+  "version": "2.0.0",
+  "description": "Strip trailing junk bytes from media/image/archive files. Browser (client-side) app + legacy desktop tools.",
+  "workspaces": [
+    "packages/core",
+    "packages/web"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace packages/web",
+    "build": "npm run build --workspace packages/core && npm run build --workspace packages/web",
+    "preview": "npm run preview --workspace packages/web",
+    "test": "npm run test --workspace packages/core",
+    "typecheck": "npm run build --workspace packages/core && tsc --noEmit -p packages/web/tsconfig.json"
+  }
+}

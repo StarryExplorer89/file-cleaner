@@ -1,0 +1,20 @@
+{
+  "name": "@file-cleaner/core",
+  "version": "2.0.0",
+  "description": "Pure TypeScript logic to detect and strip trailing junk bytes.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": ["dist", "src"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "node --test --experimental-strip-types test/*.test.ts"
+  }
+}
