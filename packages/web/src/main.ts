@@ -163,7 +163,7 @@ function handleFiles(files: FileList | File[]) {
 }
 
 // --- wiring ---
-pickBtn.addEventListener("click", () => fileInput.click());
+pickBtn.addEventListener("click", (e) => { e.stopPropagation(); fileInput.click(); });
 fileInput.addEventListener("change", () => {
   if (fileInput.files) handleFiles(fileInput.files);
   fileInput.value = "";
