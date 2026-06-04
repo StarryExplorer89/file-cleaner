@@ -6,6 +6,7 @@ This app repairs corruption caused by trailing data in any file due to bad downl
   <img src="/assets/file_cleaner_gui_macos.png" width="45%" /> 
 </p>
 
+
 ## Download
 Download here File Cleaner v1.2
 - [Download for Windows](https://github.com/StarryExplorer89/file-cleaner/releases/download/v1.2/File_Cleaner_v1.2.exe)
